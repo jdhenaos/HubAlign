@@ -16,3 +16,15 @@ if(max(degree(network1) > max(degree(network2)))){
 }else{
   maxDeg <- max(degree(network2))
 }
+
+blast <- vector(length = gsize(network1))
+
+for(i in seq(gsize(network1))){
+  blast[i] <- vector(length = gsize(network2))
+}
+
+for (m in seq(gsize(network1))) {
+  for (n in seq(gsize(network2))) {
+    blast[m][n] <- 0
+  }
+}
