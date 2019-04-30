@@ -38,3 +38,18 @@ for (a in seq(gsize(network1))) {
     blast[a,b] <- temp[a,b] / max
   }
 }
+
+if(gsize(network2) > gsize(network1)){
+  coeff <- gsize(network2) / gsize(network1)
+}else{
+  coeff <- gsize(network1) / gsize(network2)
+}
+
+
+alignScore <- matrix(0, nrow = gsize(network1), ncol = gsize(network2))
+alignNodes1 <- rep(FALSE,gsize(network1))
+alignNodes2 <- rep(FALSE,gsize(network2))
+alignment <- rep(-1,gsize(network1))
+best <- rep(-1,gsize(network1))
+
+
