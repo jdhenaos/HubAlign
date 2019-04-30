@@ -3,7 +3,8 @@ library(igraph)
 net1 <- read.graph("Documents/Alignment/HubALIGN/HubAlign-master/example/Test1.tab","ncol")
 net2 <- read.graph("Documents/Alignment/HubALIGN/HubAlign-master/example/Test2.tab","ncol")
 
-bitscore <- read.table("Documents/Alignment/HubALIGN/HubAlign-master/example/Test1_Test2.bitscore")
+bitscore <- read.table("Documents/Alignment/HubALIGN/HubAlign-master/example/Test1_Test2.bitscore",
+                       sep = "\t")
 
 if(gsize(net2) > gsize(net1)){
   network1 <- net2
@@ -26,3 +27,14 @@ blast <- matrix(0,nrow = gsize(network1),ncol = gsize(network2))
 temp <- as.data.frame(matrix(0,nrow = gsize(network1),ncol = gsize(network2)),row.names = V(network1),
                       col.names= V(network2))
 
+max <- max(bitscore$V3)
+
+for (i in seq(nrow(bitscore))) {
+  temp[bitscore[i,1],bitscore[i,2]] <- bitscore[i,3]
+}
+
+for (a in seq(gsize(network1))) {
+  for (b in seq(gsize(network2))) {
+    blast[a,b] <- temp[a,b] / max
+  }
+}
